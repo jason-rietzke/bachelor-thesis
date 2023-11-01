@@ -1,4 +1,4 @@
-\documentclass[a4paper,10pt]{report}
+\documentclass[a4paper,10pt]{article}
 \usepackage{geometry}
 \usepackage{xcolor}
 \usepackage{graphicx}
@@ -8,19 +8,48 @@
 \usepackage{cite}
 \usepackage{pdfpages}
 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{stix}
+
 \definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
-\definecolor{namecolor}{cmyk}{1,.50,0,.10} % Here I am trying to define the f
+\definecolor{namecolor}{cmyk}{1,.50,0,.10}
 
 \title{Bachelor thesis Exposé: Speech-Processing-Pipeline to overcome language barriers in real-time communication}
-\date{November 1st 2023}
-\author{Jason Rietzke, 972998}
+\author{Jason Rietzke}
 
 \begin{document}
 
-\maketitle
+\begin{titlepage}
+	\raggedleft
 
-\restoregeometry % restores the geometry
-\nopagecolor% Use this to restore the color pages to white
+	\rule{1pt}{\textheight}
+	\hspace{0.05\textwidth}
+	\parbox[b]{0.85\textwidth}{
+
+		{\textbf{November 1st 2023}}\\\\
+		{\Huge\bfseries Bachelor thesis Exposé \\[0.5\baselineskip]}\\[2\baselineskip]
+		{\Large\bfseries Speech-Processing-Pipeline to overcome language barriers in real-time communication \\[0.5\baselineskip]}\\[2\baselineskip]
+		{\large\textit{In cooperation with the LiveReader GmbH}}\\[4\baselineskip]
+
+		\vspace{0.28\textheight}
+
+		{\textbf{Environmental Informatics and Business Information Systems}\\}
+		{9. Semester, WS2023/2024}\\
+		{Campusallee}\\
+		{55768 Hoppstädten-Weiersbach}\\
+		{Trier University of Applied Sciences, Environmental Campus Birkenfeld}\\
+		{UPUT}\\
+		\\
+		{\textbf{Jason Rietzke}\\}
+		\\
+		{\textbf{Supervisor:} Prof. Dr. Rumpler}\\
+	}
+
+\end{titlepage}
+
+\restoregeometry
+\nopagecolor
 
 
 \section{Description}
@@ -92,5 +121,8 @@ The bachelor thesis covers nine weeks, starting on November 9, 2023, and ending 
   \item[2024 CW 02] Finalize thesis and prepare for submission
 \end{description}
 
+
+% \bibliographystyle{plain}
+% \bibliography{literature}
 
 \end{document}
