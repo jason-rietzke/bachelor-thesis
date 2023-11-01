@@ -1,0 +1,96 @@
+\documentclass[a4paper,10pt]{report}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{cite}
+\usepackage{pdfpages}
+
+\definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
+\definecolor{namecolor}{cmyk}{1,.50,0,.10} % Here I am trying to define the f
+
+\title{Bachelor thesis Exposé: Speech-Processing-Pipeline to overcome language barriers in real-time communication}
+\date{November 1st 2023}
+\author{Jason Rietzke, 972998}
+
+\begin{document}
+
+\maketitle
+
+\restoregeometry % restores the geometry
+\nopagecolor% Use this to restore the color pages to white
+
+
+\section{Description}
+The subject of this thesis is to develop an application that receives audio streams (e.g., from phone calls) to transcribe the spoken content and slice it into individual messages utilizing OpenAI Whisper as a foundation.
+The resulting messages can be beneficial for various purposes, such as displaying a chat history, semantic analysis, or interacting with a bot.
+
+The focus of this work lies in the use case of communication between participants speaking different languages. 
+The system can translate a message into the languages of the other parties and synthesize the translation to spoken text to feed it back into the audio stream to enable near real-time communication.
+
+
+\section{Relevance}
+The ability to communicate with people from different countries and cultures is becoming increasingly important in today's globalized world.
+Especially in time-critical applications like emergency services, it is vital to communicate with people in their native language to provide the best possible assistance in critical situations.
+
+
+\section{Research Question}
+How can audio streams be processed in near real-time using OpenAI Whisper for high-quality transcription with optional translation and speech synthesis to overcome language barriers in real-time communication?
+
+
+\section{Approach}
+\begin{enumerate}
+  \item Receiving audio: Build endpoints to receive audio streams from voice-over-IP providers.
+  \item Voice activation: Recognize spoken content to begin and end separate messages from a continuous audio stream.
+  \item Language detection: Detect the spoken language.
+  \item Transcription: Using OpenAI Whisper to transcribe the audio data into text.
+  \item Session handling: Organize related users, their respective audio streams, and transcribed messages into sessions.
+  \item Translation: Check for multiple spoken languages within one session and translate the transcription if necessary.
+  \item Speech synthesis: Synthesize an audio file from the transcription and feed it back into the audio stream.
+\end{enumerate}
+
+
+\section{Preliminary Literature and Resources}
+\begin{enumerate}
+  \item OpenAI Whisper Repository \url{https://github.com/openai/whisper}
+  \item OpenAI Whisper Paper \url{https://arxiv.org/abs/2212.04356}
+  \item FFmpeg \url{https://ffmpeg.org/}
+  \item Voice Activity Detection \url{https://speechprocessingbook.aalto.fi/Recognition/Voice_activity_detection.html}
+  \item AT\&T Labs Research research paper \url{https://aclanthology.org/N12-1048.pdf}
+\end{enumerate}
+
+
+\section{Outline}
+\begin{enumerate}
+  \item Introduction and motivation
+  \item Concept
+  \item Audio data reception and speech processing
+  \subitem Voice activation
+  \subitem Language detection
+  \subitem Transcription
+  \item Session handling and message translation
+  \item Speech synthesis and audio data transmission
+  \item Evaluation
+  \item Conclusion
+  \item Literature
+\end{enumerate}
+
+
+\section{Schedule}
+The bachelor thesis covers nine weeks, starting on November 9, 2023, and ending on January 11, 2024.
+\begin{description}
+  \item[2023 CW 46] Build the VoIP integration and work out voice activation and language detection
+  \item[2023 CW 47] Implement near real-time audio transcription with OpenAI Whisper
+  \item[2023 CW 48] Embed translation and speech synthesis services and build session handling
+  \item[2023 CW 49] Deploy with the notitia pilot program to collect feedback and performance metrics
+  \item[2023 CW 50] Review performance analytics and feedback to improve the system
+  \item[2023 CW 51] Work on minor improvements and start writing the thesis
+  \item[2023 CW 52] Write thesis
+  \item[2024 CW 01] Write thesis
+  \item[2024 CW 02] Finalize thesis and prepare for submission
+\end{description}
+
+
+\end{document}
