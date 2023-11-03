@@ -21,30 +21,28 @@
 \begin{document}
 
 \begin{titlepage}
-	\raggedleft
+\raggedleft
+\rule{1pt}{\textheight}
+\hspace{0.05\textwidth}
+\parbox[b]{0.85\textwidth}{
+  {\textbf{November 2nd 2023}}\\\\
+  {\Huge\bfseries Bachelor thesis Exposé \\[0.5\baselineskip]}\\[2\baselineskip]
+  {\Large\bfseries Speech-Processing-Pipeline to overcome language barriers in real-time communication \\[0.5\baselineskip]}\\[2\baselineskip]
+  {\large\textit{In cooperation with the LiveReader GmbH}}\\[4\baselineskip]
 
-	\rule{1pt}{\textheight}
-	\hspace{0.05\textwidth}
-	\parbox[b]{0.85\textwidth}{
+  \vspace{0.28\textheight}
 
-		{\textbf{November 1st 2023}}\\\\
-		{\Huge\bfseries Bachelor thesis Exposé \\[0.5\baselineskip]}\\[2\baselineskip]
-		{\Large\bfseries Speech-Processing-Pipeline to overcome language barriers in real-time communication \\[0.5\baselineskip]}\\[2\baselineskip]
-		{\large\textit{In cooperation with the LiveReader GmbH}}\\[4\baselineskip]
-
-		\vspace{0.28\textheight}
-
-		{\textbf{Environmental Informatics and Business Information Systems}\\}
-		{9. Semester, WS2023/2024}\\
-		{Campusallee}\\
-		{55768 Hoppstädten-Weiersbach}\\
-		{Trier University of Applied Sciences, Environmental Campus Birkenfeld}\\
-		{UPUT}\\
-		\\
-		{\textbf{Jason Rietzke}\\}
-		\\
-		{\textbf{Supervisor:} Prof. Dr. Rumpler}\\
-	}
+  {\textbf{Environmental Informatics and Business Information Systems}\\}
+  {9. Semester, WS2023/2024}\\
+  {Campusallee}\\
+  {55768 Hoppstädten-Weiersbach}\\
+  {Trier University of Applied Sciences, Environmental Campus Birkenfeld}\\
+  {UPUT}\\
+  \\
+  {\textbf{Jason Rietzke}\\}
+  \\
+  {\textbf{Supervisor:} Prof. Dr. Rumpler}\\
+}
 
 \end{titlepage}
 
@@ -53,29 +51,36 @@
 
 
 \section{Description}
-The subject of this thesis is to develop an application that receives audio streams (e.g., from phone calls) to transcribe the spoken content and slice it into individual messages utilizing OpenAI Whisper as a foundation.
-The resulting messages can be beneficial for various purposes, such as displaying a chat history, semantic analysis, or interacting with a bot.
+This bachelor's thesis aims to develop a speech-processing pipeline primarily focusing on integrating it within the Notitia application.
+It serves as a communication framework between emergency control centers and callers within the scope of the SPELL research project.
+The goal is to develop a testable prototype to transcribe and translate audio streams of at least two spoken languages in one session.
 
-The focus of this work lies in the use case of communication between participants speaking different languages. 
-The system can translate a message into the languages of the other parties and synthesize the translation to spoken text to feed it back into the audio stream to enable near real-time communication.
+The thesis seeks to compose a solution that enables near real-time transcription and translation of spoken content by utilizing existing partial solutions like OpenAI Whisper and DeepL as the foundational technologies while bridging the solutions to work appropriately as one pipeline.
+OpenAI Whisper, for instance, is not meant to be used on audio streams but is open source, can be run on-premise and supports many languages with high quality out of the box.
+
+Additionally, the system builds on top of existing internal modules for Notitia-User-Authentication and a data-stream integration to the Voice over IP provider, which is currently in preparation. This data stream will transfer audio in a WAV format.
+
+The system's core functionality involves processing audio streams, segmenting them into individual messages, and handling them within a session context regarding the participants speaking a foreign language.
 
 
 \section{Relevance}
-The ability to communicate with people from different countries and cultures is becoming increasingly important in today's globalized world.
-Especially in time-critical applications like emergency services, it is vital to communicate with people in their native language to provide the best possible assistance in critical situations.
+Effective communication in emergency services is essential, especially in time-sensitive situations where immediate, accurate information can save lives.
+The ability to bridge language barriers by offering near real-time transcription and translation services empowers emergency control centers to understand better and respond to callers' needs, providing practical assistance.
+
+Existing solutions by AWS or Microsoft Azure are often only available as cloud services rather than based on open-source technologies, which makes it difficult to rely on in critical situations.
 
 
 \section{Research Question}
-How can audio streams be processed in near real-time using OpenAI Whisper for high-quality transcription with optional translation and speech synthesis to overcome language barriers in real-time communication?
+How can a speech processing pipeline, built upon mostly open-source software, be harnessed to facilitate near real-time transcription and translation of spoken content, focusing on enhancing communication in emergency services between control centers and callers, especially when language diversity poses a significant challenge?
 
 
 \section{Approach}
 \begin{enumerate}
-  \item Receiving audio: Build endpoints to receive audio streams from voice-over-IP providers.
-  \item Voice activation: Recognize spoken content to begin and end separate messages from a continuous audio stream.
-  \item Language detection: Detect the spoken language.
+  \item Receiving audio: Receive audio streams from voice-over-IP providers.
+  \item Voice activation: Recognize spoken content to begin and end separate messages from a continuous audio stream (possibly built into Whisper).
+  \item Language detection: Detect the spoken language  (possibly built into Whisper).
   \item Transcription: Using OpenAI Whisper to transcribe the audio data into text.
-  \item Session handling: Organize related users, their respective audio streams, and transcribed messages into sessions.
+  \item Session handling: Organize related users and their respective audio streams and transcribe messages into sessions.
   \item Translation: Check for multiple spoken languages within one session and translate the transcription if necessary.
   \item Speech synthesis: Synthesize an audio file from the transcription and feed it back into the audio stream.
 \end{enumerate}
@@ -108,7 +113,7 @@ How can audio streams be processed in near real-time using OpenAI Whisper for hi
 
 
 \section{Schedule}
-The bachelor thesis covers nine weeks, starting on November 9, 2023, and ending on January 11, 2024.
+The bachelor thesis covers nine weeks, starting on November 10, 2023, and ending on January 12, 2024.
 \begin{description}
   \item[2023 CW 46] Integrate the VoIP provider as well as voice activation and language detection
   \item[2023 CW 47] Implement segmented audio transcription with OpenAI Whisper
