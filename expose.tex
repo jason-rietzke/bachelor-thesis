@@ -25,15 +25,15 @@
 \rule{1pt}{\textheight}
 \hspace{0.05\textwidth}
 \parbox[b]{0.85\textwidth}{
-  {\textbf{November 2nd 2023}}\\\\
+  {\textbf{November 5nd 2023}}\\\\
   {\Huge\bfseries Bachelor thesis Exposé \\[0.5\baselineskip]}\\[2\baselineskip]
   {\Large\bfseries Speech-Processing-Pipeline to overcome language barriers in real-time communication \\[0.5\baselineskip]}\\[2\baselineskip]
-  {\large\textit{In cooperation with the LiveReader GmbH}}\\[4\baselineskip]
+  {\large\textit{In cooperation with LiveReader GmbH}}\\[4\baselineskip]
 
   \vspace{0.28\textheight}
 
   {\textbf{Environmental Informatics and Business Information Systems}\\}
-  {9. Semester, WS2023/2024}\\
+  {WS2023/2024}\\
   {Campusallee}\\
   {55768 Hoppstädten-Weiersbach}\\
   {Trier University of Applied Sciences, Environmental Campus Birkenfeld}\\
@@ -52,26 +52,36 @@
 
 \section{Description}
 This bachelor's thesis aims to develop a speech-processing pipeline primarily focusing on integrating it within the Notitia application.
-It serves as a communication framework between emergency control centers and callers within the scope of the SPELL research project.
+It serves as a communication framework between emergency control centers and callers within the context of the SPELL research project.
 The goal is to develop a testable prototype to transcribe and translate audio streams of at least two spoken languages in one session.
 
-The thesis seeks to compose a solution that enables near real-time transcription and translation of spoken content by utilizing existing partial solutions like OpenAI Whisper and DeepL as the foundational technologies while bridging the solutions to work appropriately as one pipeline.
-OpenAI Whisper, for instance, is not meant to be used on audio streams but is open source, can be run on-premise and supports many languages with high quality out of the box.
+The thesis seeks to compose a solution that enables near real-time transcription and translation of spoken content by utilizing existing technologies like OpenAI Whisper and DeepL as a foundation to work appropriately as one solution.
+OpenAI Whisper is not meant to be used on audio streams but is open source, can be run on-premise, and supports many languages out of the box. DeepL, a German company, provides a low-latency translation API with numerous supported languages.
+There are multiple open-source libraries regarding speech synthesis with permissive licenses. One possible choice would be a project called PiperTTS.
 
-Additionally, the system builds on top of existing internal modules for Notitia-User-Authentication and a data-stream integration to the Voice over IP provider, which is currently in preparation. This data stream will transfer audio in a WAV format.
+Additionally, the system builds on top of existing internal modules for Notitia-User-Authentication and a data-stream integration to the Voice over IP provider, which is currently in preparation.
+This data stream will transfer audio in a WAV format.
 
 The system's core functionality involves processing audio streams, segmenting them into individual messages, and handling them within a session context regarding the participants speaking a foreign language.
+
 
 
 \section{Relevance}
 Effective communication in emergency services is essential, especially in time-sensitive situations where immediate, accurate information can save lives.
 The ability to bridge language barriers by offering near real-time transcription and translation services empowers emergency control centers to understand better and respond to callers' needs, providing practical assistance.
 
-Existing solutions by AWS or Microsoft Azure are often only available as cloud services rather than based on open-source technologies, which makes it difficult to rely on in critical situations.
+However, according to prior research, existing technologies often share undesirable characteristics.
+Only some are designed to work in a continuous audio stream.
+The systems built for streaming are mostly only available as a cloud solution, which is often too unreliable for critical infrastructure like emergency services regarding availability, latency, and request priority.
+The ability to run on-premise would be advantageous.
+It is also impossible to mix parts of services by various providers to utilize the best features of each one in conjunction.
+
 
 
 \section{Research Question}
-How can a speech processing pipeline, built upon mostly open-source software, be harnessed to facilitate near real-time transcription and translation of spoken content, focusing on enhancing communication in emergency services between control centers and callers, especially when language diversity poses a significant challenge?
+How can a speech processing pipeline, built upon mostly open-source software, be harnessed to facilitate near real-time transcription and translation of spoken content to overcome language barriers in the context of an emergency call center?\\
+Since time is crucial in this use case, the focus is the development of a testable prototype that strives towards processing time reduction.\\
+Improving the transcription and translation accuracy is out of the scope of this work.
 
 
 \section{Approach}
@@ -93,6 +103,8 @@ How can a speech processing pipeline, built upon mostly open-source software, be
   \item FFmpeg \url{https://ffmpeg.org/}
   \item Voice Activity Detection \url{https://speechprocessingbook.aalto.fi/Recognition/Voice_activity_detection.html}
   \item AT\&T Labs Research research paper \url{https://aclanthology.org/N12-1048.pdf}
+  \item PiperTTS Repository \url{https://github.com/rhasspy/piper}
+  \item DeepL Website \url{https://www.deepl.com/}
 \end{enumerate}
 
 
@@ -116,7 +128,7 @@ How can a speech processing pipeline, built upon mostly open-source software, be
 The bachelor thesis covers nine weeks, starting on November 10, 2023, and ending on January 12, 2024.
 \begin{description}
   \item[2023 CW 46] Integrate the VoIP provider as well as voice activation and language detection
-  \item[2023 CW 47] Implement segmented audio transcription with OpenAI Whisper
+  \item[2023 CW 47 ff.] Implement segmented audio transcription with OpenAI Whisper
   \item[2023 CW 48] Embed translation and speech synthesis services and build session handling
   \item[2023 CW 49] Deploy with the notitia pilot program to collect feedback and performance metrics
   \item[2023 CW 50] Review performance analytics and feedback to improve the system
