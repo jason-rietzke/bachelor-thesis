@@ -5,3 +5,9 @@
 *.out
 *.fls
 *.pdf
+*.lot
+*.lof
+*.blg
+*.toc
+*.xml
+.DS_Store
