@@ -1,0 +1,123 @@
+\chapter{Introduction}
+
+\label{Chapter1}
+
+%----------------------------------------------------------------------------------------
+
+% Define some commands to keep the formatting separated from the content 
+\newcommand{\keyword}[1]{\textbf{#1}}
+\newcommand{\tabhead}[1]{\textbf{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{\bfseries#1}}
+\newcommand{\option}[1]{\texttt{\itshape#1}}
+
+%----------------------------------------------------------------------------------------
+
+\section{Background \& Motivation}
+
+% This work is conducted in the context of the Notitia Suite of the LiveReader GmbH, within the SPELL research project. 
+% The SPELL research projects aims to improve the software of critical infrastructures, such as emergency control 
+% centers. In this context the Notitia Suite serves the prupose of a interface for the emergency calltaker to dispatch 
+% the emergency services. \\
+% \\
+% An important part of dispatching the proper resources is to understand the needs of the emergency caller. 
+% This is especially difficult when the caller and the calltaker do not speak the same language and important details 
+% can not be conveyed properly. \\
+% \\
+% This work aims to develop a speech-processing pipeline that can be integrated into the Notitia Suite to allow for 
+% communication between the caller and the calltaker speaking foreign languages. The pipeline itself is able to work 
+% stand alone and can be integrated into other applications but does not have to be. \\
+% This work will focus on the development of the speech-processing pipeline from here on and won't go into detail 
+% regarding intigration into the Notitia Suite or any other application that may use it as a service.
+
+Effective communication is critical in emergency services, where timely and accurate information is vital to 
+saving lives. The Notitia application, within the context of the SPELL research project, aims to establish a 
+communication framework between emergency control centers and callers. The project envisions a seamless integration of 
+a speech-processing pipeline to transcribe and translate audio streams in real-time, addressing the language barriers 
+that often impede clear communication during emergencies.
+
+The SPELL research project recognizes the importance of near real-time transcription and translation services in empowering emergency control centers—existing technologies present challenges that need innovative solutions. 
+Many systems designed for continuous audio streams are cloud-based, introducing concerns regarding reliability, 
+latency, and request priority—critical factors in emergency services. The proposed solution aims to 
+overcome these challenges by leveraging open-source technologies and building a testable prototype that can be deployed 
+on-premise, ensuring reliability in time-sensitive scenarios.
+
+%----------------------------------------------------------------------------------------
+
+\section{Problem Statement}
+
+% Despite the advancements in speech processing, existing solutions for transcription and translation in continuous audio 
+% streams often fall short of meeting the specific demands of emergency call centers. Cloud-based systems, while widely 
+% available, pose risks related to their reliability and latency, which are critical considerations in the context of 
+% emergency response. The inability to seamlessly integrate features from different providers further hinders the 
+% optimization of the transcription and translation process.\\
+% \\
+% The challenge, therefore, is to develop a speech-processing pipeline that not only addresses the language barriers in 
+% emergency communication but also meets the stringent requirements of reliability, low latency, and on-premise 
+% deployment. The integration of OpenAI Whisper, DeepL, and PiperTTS as foundational technologies sets the stage for a 
+% comprehensive solution, yet the task is to weave these components into a coherent system tailored for emergency 
+% services.
+
+Despite the rapid advancements in speech processing technologies, the unique demands of emergency call centers pose 
+significant challenges that current solutions need help to overcome. The SPELL research project identifies a crucial gap 
+in systems designed for continuous audio streams. While cloud-based platforms offer convenience and 
+scalability, they introduce a host of concerns when applied to the critical infrastructure of emergency services. 
+Issues such as reliability, latency, and request prioritization become magnified in time-sensitive scenarios, 
+jeopardizing the effectiveness of emergency responses.
+
+The reliance on cloud solutions also restricts the flexibility to deploy services on-premise, a key consideration for 
+maintaining the operational integrity of emergency control centers. Moreover, the homogeneous nature of many 
+speech-processing systems impedes the seamless integration of features from diverse providers. This limitation prevents 
+emergency services from harnessing the full spectrum of capabilities offered by various tools, hindering the 
+optimization of transcription and translation processes.
+
+In essence, the challenge is not just about overcoming language barriers; it is about tailoring a solution that aligns 
+with the unique requirements of emergency communication. The proposed speech-processing pipeline must be a fusion of 
+innovation and practicality, addressing linguistic diversity and the critical need for reliability, low 
+latency, and the ability to operate on-premise.
+
+Therefore, the problem is multifaceted: How can a speech processing pipeline be meticulously crafted to 
+transcend the limitations of current technologies, providing a reliable, low-latency, and on-premise solution for 
+emergency call centers? This challenge necessitates an exploration of open-source technologies, strategic integration 
+of proven components like OpenAI Whisper and DeepL, and the development of a tailored prototype, all within the 
+stringent time constraints that characterize emergencies. The task is to navigate the intricacies of emergency 
+communication, ensuring that the proposed solution becomes an indispensable tool for effective and timely response in 
+the face of linguistic diversity.
+
+
+%----------------------------------------------------------------------------------------
+
+\section{Objectives \& Scope}
+
+The primary objective of this bachelor's thesis is to develop a testable prototype for a speech-processing pipeline 
+within the Notitia application. This prototype aims to transcribe and translate audio streams in near real-time, 
+facilitating communication between emergency control centers and callers speaking different languages. The focus is on 
+utilizing existing open-source technologies, such as OpenAI Whisper for speech recognition, DeepL for translation, and 
+PiperTTS for speech synthesis.
+
+The scope encompasses the integration of the speech-processing pipeline into the Notitia application, leveraging 
+existing internal modules for user authentication and data-stream integration to the Voice over IP provider. The 
+system's functionality revolves around processing audio streams, segmenting them into individual messages, and managing 
+them within a session context specific to foreign language communication.
+
+%----------------------------------------------------------------------------------------
+
+\section{Research Questions \& Methodology}
+
+\subsection{Research Questions}
+
+How can a speech processing pipeline, predominantly built upon open-source software, be harnessed to facilitate near 
+real-time transcription and translation of spoken content to overcome language barriers in the context of an emergency 
+call center?
+
+\subsection{Methodology}
+
+The research methodology involves the development of a testable prototype with a focus on minimizing processing time. 
+The integration of OpenAI Whisper, DeepL, and PiperTTS will be explored to optimize the transcription and translation 
+process. The system will utilize existing internal modules for user authentication and data-stream integration, with a 
+data stream transferring audio in WAV format. The research emphasizes on-premise deployment for reliability in 
+emergency scenarios.
+
+In the subsequent chapters, we delve into the technical details of the speech-processing pipeline, its integration into 
+Notitia, and the evaluation of its performance in the critical context of emergency communication.
+
