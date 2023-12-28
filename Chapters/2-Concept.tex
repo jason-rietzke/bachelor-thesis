@@ -25,3 +25,23 @@ This stream comes via UDP and contains 20ms of uncompressed WAV audio data for e
 Each chunk carries an identifiable tag that allows the system to map the audio data against a user.
 These chunks get concatenated to be processed by the speech-processing pipeline.
 
+%----------------------------------------------------------------------------------------
+
+\section{Audio Output}
+
+After the translated text is available, the system can synthesize an audio file. The audio file gets created 
+using PiperTTS, an open-source text-to-speech library. The library supports multiple languages and voices. The 
+resulting audio file gets sent back to users via the appropriate audio output channel. This procedure is different 
+depending on the audio input channel.
+
+\subsection{Web Browser Audio}
+
+If the user connects via a browser audio stream, the system sends a WebSocket message to the client to notify it about 
+the existence of a newly synthesized file. The web client uses the transmitted ID property to download the audio WAV 
+file and uses the Web Audio API to play it back.
+
+\subsection{Voice-over-IP Audio}
+If the user connects via a VoIP provider, the system sends a UDP message to the provider via a previously configured 
+backchannel port. The message contains the ID of the audio file, and the VoIP provider uses the ID to download the 
+audio WAV file and plays it back into the audio stream of the phone call.
+
