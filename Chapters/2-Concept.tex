@@ -1,0 +1,27 @@
+\chapter{Concept}
+
+\label{Chapter2}
+
+%----------------------------------------------------------------------------------------
+
+\section{Audio Input}
+
+The flexibility of the system allows for various audio input options. This work will cover two of the most important 
+ones. The two most critical audio sources are recordings by web browsers and audio input provided by voice-over-IP 
+communication systems.
+
+\subsection{Web Browser Audio}
+
+Within the context of this work, the focus lies on integrating Chromium-based web browsers. The Web MediaRecorder API 
+provides the audio input. The API requests access to the microphone and allows for recording audio streams. 
+The audio stream gets sent to the server as WebM-encoded data chunks of about 200ms. The server then concatenates the 
+chunks and converts the audio stream to WAV format. The conversion utilizes FFmpeg, a command-line tool for 
+manipulating audio and video files. The speech-processing pipeline then processes the resulting WAV file.
+
+\subsection{Voice-over-IP Audio}
+
+To get access to VoIP audio data, a third party gets access to the API and forwards the data stream to the system. 
+This stream comes via UDP and contains 20ms of uncompressed WAV audio data for each chunk.
+Each chunk carries an identifiable tag that allows the system to map the audio data against a user.
+These chunks get concatenated to be processed by the speech-processing pipeline.
+
