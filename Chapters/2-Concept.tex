@@ -2,6 +2,10 @@
 
 \label{Chapter2}
 
+The concept chapter of this work gives a brief overview of what components are doing and how they are related. 
+A detailed look at each component and its inner workings comes in the following chapters of this work.
+
+
 %----------------------------------------------------------------------------------------
 
 \section{Audio Input}
@@ -61,3 +65,18 @@ If the user connects via a VoIP provider, the system sends a UDP message to the 
 backchannel port. The message contains the ID of the audio file, and the VoIP provider uses the ID to download the 
 audio WAV file and plays it back into the audio stream of the phone call.
 
+%----------------------------------------------------------------------------------------
+
+\section{Session Handling}
+
+After creating a new session with its corresponding ID, users can join it by connecting to it with an audio stream. 
+Each audio stream is related to a known Notitia User account or gets a temporary user object. In the latter case, the 
+user will not be able to be identified as the same one if the audio connection drops and gets reconnected.
+
+The session object holds various data about the connected audio streams, their users, and the determined spoken 
+languages of each one.
+This data leads to generating the necessary translations of a message.
+A session is also responsible for broadcasting the information about generated audio files to the appropriate receivers.
+
+It is possible to connect any number of users to one singular session, but within the context of this work, a two-user 
+session is most common since it represents the use case of an emergency caller and call-taker.
