@@ -27,6 +27,22 @@ These chunks get concatenated to be processed by the speech-processing pipeline.
 
 %----------------------------------------------------------------------------------------
 
+\section{Speech Processing}
+
+The speech processing component mainly comprises a microservice wrapping OpenAIs Whisper project. It receives slices of 
+the audio stream, various in length, and transcribes them into text. The transcription is then analyzed, and if there 
+is no change in content for more than two iterations, it finalizes the pending message. Any new content will cause the 
+creation of a new message object, and the process will start over.
+
+The speech-processing pipeline utilizes Whisper to determine the spoken language as well. It returns the most likely 
+language used in the audio file. Alongside the integrated voice-activation feature to filter out sections that do not 
+contain spoken content, Whisper is a very versatile tool.
+
+After a message is determined to have ended, the system utilizes DeepL to translate the message into any foreign 
+language spoken within the same session.
+
+%----------------------------------------------------------------------------------------
+
 \section{Audio Output}
 
 After the translated text is available, the system can synthesize an audio file. The audio file gets created 
