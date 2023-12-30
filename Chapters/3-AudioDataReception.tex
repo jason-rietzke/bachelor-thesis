@@ -64,3 +64,38 @@ The audio data is requested in chunks of approximately 200ms and sent to the ser
 On the other hand, the receiving WebSocket Server takes the chunk, converts the data into a WAV file format by 
 utilizing FFMPEG, and fires the appropriate AudioConnection "message" event to inform all listeners about the new data.
 
+%----------------------------------------------------------------------------------------
+
+\section{Voice-over-IP Audio}
+
+The voice-over-IP audio input is more complicated than the WebSocket solution for the web browser. It is based on UDP 
+for the audio stream and requires additional HTTP API endpoints to register incoming streams properly.
+
+\subsection{Transmitter}
+
+The transmitting side of the VoIP audio input is the VoIP provider. Third parties implement it, and its detailed 
+implementation is out of the scope of this work. The VoIP provider sends the audio data as a UDP stream to the system 
+with approximately 20ms of audio data per chunk. Each chunk contains an identifier that allows the system to map the 
+audio data to a specific user. For the system to identify the audio data and assign it to the correct connections and 
+sessions, the VoIP provider registers the audio stream via an HTTP API endpoint like the one shown below.
+
+\begin{verbatim}
+POST /api/v1/register-rtp
+{
+    "ssrcId": 87C12C,
+    "callbackPort": 35200,
+    "sessionId": "22265aba-f96b-55b2-8335-5a19cf757096",
+    "userId": "e96249a4-ae55-5120-b51b-b57401b29955",
+}
+\end{verbatim}
+
+The \textbf{ssrcId} property is the unique identifier for the UDP stream. The \textbf{callbackPort} property is the 
+system's port to send UDP messages to the VoIP provider. The \textbf{sessionId} and \textbf{userId} properties are the 
+identifiers for the session and user to whom the audio stream belongs.
+
+\subsection{Receiver}
+
+The receiving side of the VoIP audio input is the system. It receives the UDP stream from the VoIP provider. 
+It concatenates the chunks to a complete audio stream by utilizing the ssrcId property and cross-referencing it with 
+the registered streams. Since this is already a WAV audio stream, the system can directly fire the appropriate 
+AudioConnection "message" event to inform all listeners about the new data.
