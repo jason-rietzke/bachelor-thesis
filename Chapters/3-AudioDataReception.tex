@@ -45,3 +45,22 @@ export class AudioConnection {
 }
 \end{verbatim}
 
+%----------------------------------------------------------------------------------------
+
+\section{Web Browser Audio}
+
+The web browser audio input is the most straightforward audio input channel. It is based on WebSockets and
+uses the WebSocket API to receive audio data from the client. The client uses the MediaRecorder API to capture the 
+audio data from the microphone and sends it to the server via the WebSocket connection.
+
+\subsection{Transmitter}
+
+The web browser joins a WebSocket connection to the server and sends the audio data as a binary message to the server. 
+It requests access to the microphone and uses the MediaRecorder API to capture the audio data. 
+The audio data is requested in chunks of approximately 200ms and sent to the server as a WebM-encoded binary message.
+
+\subsection{Receiver}
+
+On the other hand, the receiving WebSocket Server takes the chunk, converts the data into a WAV file format by 
+utilizing FFMPEG, and fires the appropriate AudioConnection "message" event to inform all listeners about the new data.
+
