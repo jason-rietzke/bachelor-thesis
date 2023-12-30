@@ -1,0 +1,47 @@
+\chapter{Audio Data Reception}
+
+\label{AudioDataReception}
+
+The system is versatile and is capable of handling a wide variety of input audio data streams. The scope of this work, 
+however, focuses on the reception of web browser audio input and Voice over IP audio input.
+
+%----------------------------------------------------------------------------------------
+
+\section{Audio Connection}
+
+Any specific audio reception point returns the generic AudioConnection class and allows the rest of the system to 
+handle every audio connection the same. 
+It contains data about its assigned session, the user it belongs to, and the audio input channel it uses.
+
+It also provides an event-based interface so the rest of the system can listen to specific events and react  
+accordingly. The available events are the "close" event, which gets fired when the audio connection gets closed, and 
+the "message" event, which gets fired when new data from the audio stream is available.
+
+This architecture provides a unified interface for the entire system to handle audio streams and their data.
+
+\begin{verbatim}
+// audioConnection.ts
+export type EventType = "message" | "close";
+export class AudioConnection {
+    get closed() {}
+    readonly id: string;
+    readonly sessionId: string;
+    readonly userId: string;
+    readonly userName: string | undefined;
+    readonly rtpRegisterEntry: RTPRegisterEntry | undefined;
+
+    constructor(
+        id: string,
+        sessionId: string,
+        userId?: string,
+        userName?: string,
+        rtpRegisterEntry?: RTPRegisterEntry,
+    ) {}
+
+    emitMessage(message: Buffer) {}
+    close() {}
+    on(type: EventType, cb: (arg: Buffer | void) => void): number {}
+    off(id: number) {}
+}
+\end{verbatim}
+
