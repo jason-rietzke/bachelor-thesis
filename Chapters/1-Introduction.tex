@@ -1,6 +1,6 @@
 \chapter{Introduction}
 
-\label{Chapter1}
+\label{Introduction}
 
 %----------------------------------------------------------------------------------------
 
@@ -121,3 +121,14 @@ emergency scenarios.
 In the subsequent chapters, we delve into the technical details of the speech-processing pipeline, its integration into 
 Notitia, and the evaluation of its performance in the critical context of emergency communication.
 
+%----------------------------------------------------------------------------------------
+
+\section{Development Process}
+
+For the development of this project, Visual Studio Code is the IDE of choice. The project utilizes a microservice 
+architecture, which allows the development of different system parts independently and deploying them separately. 
+The project is versioned using Git and hosted privately on GitHub under the LiveReader organization. 
+
+The primary runtime for the backend is Node.js version 20 LTS. It provides an API interface for any frontend or third 
+party to communicate with.
+The web interface uses Vue.js as a UI framework, extended by Vuetify as a UI component library.
