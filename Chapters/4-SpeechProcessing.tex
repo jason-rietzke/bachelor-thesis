@@ -49,3 +49,25 @@ microservice and expects a POST request with the audio file as the body of the r
 WAV format and encoded as base64. There is also an optional query parameter to specify the language of the audio 
 content. The microservice returns the resulting JSON information about the audio file.
 
+%----------------------------------------------------------------------------------------
+
+\section{Language Detection}
+
+If Whisper has no information about the language of the audio file, it determines a list of possible languages. The 
+audio file transcription gets generated in the language with the highest probability. The speech-processing pipeline 
+also uses this integrated language detection to determine the language of the audio stream.
+
+Since this is not always accurate, especially with short audio files, the speech-processing pipeline brings additional 
+safeguards to reduce the chance of misinterpreted audio files.
+
+Suppose there is no previously known language for the user that sends the audio stream. In that case, the transcription 
+microservice will not get any assumption about the language and, therefore, determine it by itself. This language will 
+be returned and saved as the user's language for future audio streams.
+
+Since this assumption can be false, or the user might switch to another language, the speech-processing pipeline 
+assumes the previous language as long as a message has less than five words. From this point on, language detection 
+will reactivate again to determine the language of the audio stream. This safeguard reduces the chance of 
+misinterpreted audio files since the user will most likely not switch the language of the audio stream in the middle 
+of the conversation. Concise messages are the most vulnerable to language detection errors, and this protection 
+prevents these.
+
