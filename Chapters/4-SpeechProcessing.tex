@@ -9,3 +9,43 @@ transcribes them into text.
 Since Whisper cannot process audio streams directly but solely complete audio files, this service is required to build 
 the basis to transcribe slices of the audio stream.
 
+%----------------------------------------------------------------------------------------
+
+\section{Microservice Wrapper}
+
+The speech-processing pipeline contains a microservice for processing audio streams with OpenAIs Whisper. It receives 
+transcription requests via an HTTP API and returns the resulting JSON information about the audio file.
+
+\subsection{Faster Whisper}
+
+Since the system's hardware uses Nvidia graphics cards, the microservice uses a GPU-accelerated version of Whisper 
+called Faster Whisper. It brings CUDA support to allow for GPU-accelerated processing of audio files when dealing with 
+Nvidia graphics cards. The microservice checks for the availability of CUDA support on startup and falls back to the 
+CPU version if it is unavailable.
+
+Since the interface for Faster Whisper is only available in the Python programming language, but the interfacing 
+service is preferred to be developed in Node.js, the Whisper access is implemented by building a CLI interface that 
+calls all necessary operations of Faster Whisper. This design decision allows the developer to test the whisper 
+interface independently since it can run as a terminal application.
+
+The Node.js interface for the microservice itself spawns a child process that runs this application and communicates 
+with it over the standard input/output.
+
+\subsection{Service Pool}
+
+The versatility of this design pattern made another improvement very easy to implement. Since the capabilities of 
+different graphics cards are various, and one audio file processing job might not utilize the full potential of the 
+hardware in question, it makes sense to provide a service pool with a configurable amount of transcription workers 
+available. One transcription worker would be one instance of the previously explained CLI tool.
+
+Due to the chosen design, this improvement is natural by holding a ServicePool with numerous worker instances. When 
+requesting a job, the pool uses the next available worker instance.
+
+\subsection{Interface}
+
+The HTTP interface of the microservice is straightforward. It provides a single endpoint for transcribing audio files 
+and returns the resulting JSON information about the audio file. The endpoint is available under the root path of the 
+microservice and expects a POST request with the audio file as the body of the request. The audio file has to be in a 
+WAV format and encoded as base64. There is also an optional query parameter to specify the language of the audio 
+content. The microservice returns the resulting JSON information about the audio file.
+
