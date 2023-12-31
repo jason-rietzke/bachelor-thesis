@@ -6,3 +6,47 @@ Speech synthesis and transmitting the resulting audio data to the proper users i
 following components are responsible for this task. Especially for users only connected via Voice over IP, this is the 
 only way to provide them with the translated message.
 
+%----------------------------------------------------------------------------------------
+
+\section{Speech Synthesis}
+
+The System uses PiperTTS, an open-source text-to-speech library, to synthesize spoken audio from text. It supports 
+multiple languages and voices and allows the System to create audio files in any language with a voice model.
+
+The System uses PiperTTS to create audio files from the translated messages. The audio files are stored in the 
+filesystem and available via a unique ID. The ID gets returned to the session handling component, which uses it to send 
+the audio file to the appropriate users.
+
+\subsection{TTS Microservice}
+
+Like the transcription microservice, the speech synthesis microservice wraps the PiperTTS CLI interface and 
+provides a convenient HTTP API interface to the rest of the System. The service spawns a child process that runs the 
+PiperTTS CLI application and awaits the generation of the audio file. It then returns the audio file as an HTTP response 
+encoded as audio/wav.
+
+The HTTP interface of the microservice is straightforward. It provides a single endpoint for synthesizing audio files 
+and returns the resulting audio file. The endpoint is available under the root path of the microservice and expects a 
+POST request with the text to synthesize as the body of the request. There is one required query parameter to specify 
+the language of the audio content. Additionally, there are optional query parameters to specify the preferred country, 
+gender, or a specific voice model. The microservice returns the resulting audio file.
+
+\begin{verbatim}
+POST / HTTP/1.1
+Content-Type: text/plain
+Content-Length: 28
+Accept: audio/wav
+
+Hello World, this is a test.
+
+\end{verbatim}
+
+\subsection{Audio Generation}
+
+Since PiperTTS utilizes the entire CPU by splitting the audio generation into as many threads as there are CPU cores, 
+the System can utilize the hardware's full potential without creating a service pool like the transcription 
+microservice.
+
+The generated audio file is in the WAV format and encoded as audio/wav. The System stores the audio file in the 
+filesystem. It returns the ID of the audio file to the session handling component—the session handling component uses 
+the ID to send the audio file to the appropriate users. 
+
