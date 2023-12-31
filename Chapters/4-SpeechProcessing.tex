@@ -1,0 +1,11 @@
+\chapter{Speech Processing}
+
+\label{SpeechProcessing}
+
+The speech-processing component mainly comprises a microservice wrapping OpenAIs Whisper project and the management 
+that utilizes this component to process audio streams. It receives slices of the audio stream, various in length, and
+transcribes them into text.
+
+Since Whisper cannot process audio streams directly but solely complete audio files, this service is required to build 
+the basis to transcribe slices of the audio stream.
+
