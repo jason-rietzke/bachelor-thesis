@@ -71,3 +71,20 @@ misinterpreted audio files since the user will most likely not switch the langua
 of the conversation. Concise messages are the most vulnerable to language detection errors, and this protection 
 prevents these.
 
+%----------------------------------------------------------------------------------------
+
+\section{Transcription}
+
+The transcription response of the microservice contains a list of all recognized words and their probability. The 
+speech-processing pipeline uses this to create the transcription of the audio stream. Words with a low probability are 
+uncertain and can be highlighted to the user in the front end.
+
+The speech-processing pipeline requests a transcription of the audio stream every 1500ms by default. If the 
+transcription has not changed since the previous request, the message will be assumed to be complete, and the recorded 
+audio data will be cut off to start a new buffer for the following message. This design decision allows the system to 
+efficiently handle multiple messages in a row without interrupting the audio stream.
+
+Silence will cause such a cut since the audio file did not contain any additional spoken content, thus causing the 
+transcription to stay the same. After starting to speak, the audio buffer contains spoken content again, and the 
+transcription will contain new information. This new transcription input causes the creation of a new message, which 
+will be pending until the transcription changes to 1500ms again.
