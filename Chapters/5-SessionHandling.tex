@@ -5,3 +5,37 @@
 The session handling and message translation components are responsible for managing the interaction between the 
 different session participants and translating the messages between the different languages if necessary.
 
+%----------------------------------------------------------------------------------------
+
+\section{Session Handling}
+
+A session represents a single conversation between multiple participants. It contains all the information about the 
+users, their audio connections, and the messages sent in this session. The session handling component is 
+responsible for creating and managing these interactions.
+
+After a session is created, it is assigned a unique session ID. This session ID is used to identify the session and 
+allows the participants to join the session. After a user joins, the session registers the user and keeps track of 
+their session-related data, like their determined language.
+
+\subsection{Message Handling}
+
+After a user object identifies the start of a new message, it creates a new message object and assigns it to the 
+session. The session receives all updates regarding the message and notifies all subscribed participants about the 
+changes. Users connected to a session via Web Browser can see the updates to the messages in real time since the 
+session sends the updates via WebSockets.
+
+After a message is complete and its processing is finished, the session determines the language of the message and 
+finds all foreign languages present in the session by different users. It then requests all necessary translations.
+
+\subsection{Interface Options}
+
+A session provides multiple options to interact with it. One of them is the WebSocket interface, which allows 
+subscribing and unsubscribing to events like creating and updating messages or updating the entire session object, 
+for instance, when a new user joins the session. The web browser client uses this interface to receive updates about 
+the session and its messages to display them to the user.
+
+Another option is a WebHook interface. This allows third-party applications to subscribe to the session and receive 
+updates about it and its messages. If a service registers to a WebHook, a session sends all updates to the HTTP 
+endpoint of the service. This interface can be used by any third-party application to integrate with the System and 
+receive updates about the session.
+
