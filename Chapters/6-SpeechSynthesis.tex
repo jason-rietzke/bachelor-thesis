@@ -50,3 +50,51 @@ The generated audio file is in the WAV format and encoded as audio/wav. The Syst
 filesystem. It returns the ID of the audio file to the session handling component—the session handling component uses 
 the ID to send the audio file to the appropriate users. 
 
+%----------------------------------------------------------------------------------------
+
+\section{Audio Data Transmission}
+
+After the audio file is available, the System needs to send it to the appropriate users. This procedure is different 
+depending on the audio input channel. The System uses WebSockets to send the audio file to users connected via a web 
+browser. For users connected via Voice over IP, the System uses a UDP backchannel to send the audio file to the VoIP 
+provider.
+
+\subsection{Web Browser Audio}
+
+If the user connects via a browser audio stream, the System sends a WebSocket message to the client to notify it about 
+the existence of a newly synthesized file. The web client uses the transmitted ID property to download the audio WAV 
+file and uses the Web Audio API to play it back.
+
+The WebSocket message contains the ID of the audio file as well as data about the nature of the synthesized audio file. 
+The web client uses this information to determine the correct way to play back the audio file. The System sends the 
+following WebSocket message to the client.
+
+\begin{verbatim}
+{
+    "type": "tts",
+    "audioId": "1c4e0c77-f3d9-5ba5-bc88-c2177926514d",
+    "playbackType": "translation"
+}
+\end{verbatim}
+
+The "type" property allows the use of one single WebSocket connection for all kinds of messages and helps the client 
+determine the correct way to handle the message. In this case, it is a text-to-speech event. The "audioId" property 
+contains the ID of the audio file. The "playbackType" property contains the type of the audio file. In this case, it is 
+a translation of a message sent by another user. It can also be assigned to the value "translation-playback." The 
+"translation-playback" value is used to play back the translation of the user's message.
+
+With this design decision, the User Interface can easily support features to play back the translations in different 
+volume levels or even allow client-side configuration to turn off the playback of specific translations altogether.
+
+\subsection{Voice over IP Audio}
+
+If the user connects via a VoIP provider, the System sends a UDP message to the provider via a previously configured 
+backchannel port. The message contains the ID of the audio file, and the VoIP provider uses the ID to download the 
+audio WAV file and plays it back into the audio stream of the phone call. 
+
+The UDP message contains only the ID of the audio file. The VoIP provider uses the ID to download the audio file and 
+play it back to the user. The System sends the following UDP message to the VoIP provider. 
+
+\begin{verbatim}
+WaveFile:30ea2c43-bbdc-5db6-8d46-78ddbc2b1b72
+\end{verbatim}
