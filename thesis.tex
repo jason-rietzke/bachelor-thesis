@@ -44,18 +44,19 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 
 \thesistitle{Speech-Processing-Pipeline to overcome language barriers in real-time communication} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
-\supervisor{Prof. Dr. Martin \textsc{Rumpler}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\psupervisor{Prof. Dr. Martin Rumpler} % Your primary supervisor's name, this is used in the title page, print it elsewhere with \psupname
+\ssupervisor{Prof. Dr. Klaus-Uwe Gollmer} % Your secondary supervisor's name, this is used in the title page, print it elsewhere with \ssupname
 \examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
-\degree{Bachelor of Science} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
-\author{Jason \textsc{Rietzke}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+\degree{Bachelor of Science (B. Sc.)} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+\author{Jason Rietzke} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
 \addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
 
 \subject{Computer Science} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
 \keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
 \university{\href{https://umwelt-campus.de}{Trier University of Applied Sciences, Environmental Campus Birkenfeld}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
-\department{\href{http://department.university.com}{Department or School Name}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
-\group{\href{http://researchgroup.university.com}{Research Group Name}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
-\faculty{\href{http://faculty.university.com}{Faculty Name}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+\department{\href{https://www.umwelt-campus.de/en/study/study-programmes-continuing-education/bachelor/environmental-informatics-and-business-information-systems-bsc}{Environmental Informatics and Business Information Systems}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+\group{} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
+\faculty{Umweltplanung / Umwelttechnik} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
 
 \AtBeginDocument{
 \hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
@@ -74,38 +75,42 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 
 \begin{titlepage}
-\begin{center}
+	\begin{center}
+		{\huge \bfseries \ttitle\par}\vspace{0.4cm}
+		\HRule \\[1.5cm]
 
-\vspace*{.06\textheight}
-{\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
-\textsc{\Large \degreename}\\[0.5cm] % Thesis type
+		\begin{minipage}[t]{0.4\textwidth}
+		\begin{flushleft} \large
+		\emph{Author:}\\
+		\authorname\\[0.3cm]
+		\emph{Semester:}\\
+		{9th Semester}\\[0.3cm]
+		\emph{Date of Submission:}\\
+		{January 9th, 2024}\\[0.3cm]
 
-\HRule \\[0.4cm] % Horizontal line
-{\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
-\HRule \\[1.5cm] % Horizontal line
- 
-\begin{minipage}[t]{0.4\textwidth}
-\begin{flushleft} \large
-\emph{Author:}\\
-\authorname % Author name - remove the \href bracket to remove the link
-\end{flushleft}
-\end{minipage}
-\begin{minipage}[t]{0.4\textwidth}
-\begin{flushright} \large
-\emph{Supervisor:} \\
-\supname % Supervisor name - remove the \href bracket to remove the link  
-\end{flushright}
-\end{minipage}\\[3cm]
- 
-\vfill
+		\end{flushleft}
+		\end{minipage}
+		\begin{minipage}[t]{0.5\textwidth}
+		\begin{flushright} \large
+		\emph{Primary Supervisor:} \\
+		\psupname\\[0.3cm]
+		\emph{Secondary Supervisor:} \\
+		\ssupname\\
+		\end{flushright}
+		\end{minipage}\\[3cm]
+		
+		\vfill
 
-\vfill
+		\large\textit{
+			A bachelor's thesis submitted in fulfillment of the requirements\\ for the degree of \degreename
+		}\\[0.3cm]
+		\large\textit{in the}\\[0.4cm]
+		\large\textit\deptname\\[0.4cm]
+		\large\textit{at the}\\[0.4cm]
+		\large\textit\univname\\[2cm]
 
-{\large \today}\\[4cm] % Date
-%\includegraphics{Logo} % University/department logo - uncomment to place it
- 
-\vfill
-\end{center}
+		\vfill
+	\end{center}
 \end{titlepage}
 
 %----------------------------------------------------------------------------------------
