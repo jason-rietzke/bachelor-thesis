@@ -61,3 +61,18 @@ streams are active, the System has a processing time more significant than the t
 the System awaits the results of the previous transcription before starting a new one for the same audio stream. This 
 ensures that the System can handle up to eight simultaneous audio streams without requesting more resources than are 
 available.
+
+%----------------------------------------------------------------------------------------
+
+\section{Basesd on Open Source}
+
+The goal was to create a System based on open-source components and bundle them into a single pipeline that provides a 
+complete solution for a near real-time speech processing application. The System uses open-source components for the 
+most part. Audio transcription is based on the open-source solution of OpenAI called Whisper, and Speech Synthesis 
+utilizes the open-source text-to-speech library PiperTTS.
+
+The only component that is not open-source is the text translation component. Since all open-source translation 
+services do not meet the expectations in quality and or versatility, the design decision was made to use the DeepL 
+translation service. DeepL is a commercial translation service that provides a high-quality translation API. However, 
+the versatility of the system design allows for the future replacement of the DeepL translation service with an 
+open-source solution with minimal effort.
