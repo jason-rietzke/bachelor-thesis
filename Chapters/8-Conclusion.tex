@@ -36,3 +36,34 @@ The only external proprietary component the speech-processing pipeline uses is t
 the transcription results into the required languages within a session. This is the only component that is not 
 open-source since the quality and versatility of open-source translation services do not meet expectations.
 
+%----------------------------------------------------------------------------------------
+
+\section{Potential Future Work}
+Even though the developed speech-processing pipeline meets most requirements, there is still room for improvement. 
+The following sections discuss potential future work.
+
+\subsection{Open-Source Translation Service}
+
+The System uses the DeepL translation service to translate the transcription results into the required languages. 
+DeepL is a commercial translation service that provides a high-quality translation API. However, the versatility of the 
+System design allows for the future replacement of the DeepL translation service with an open-source solution. 
+
+Since new AI models are continuously being developed, open-source translation services may be available in the future. 
+Integrating such a service into the System would be straightforward since the System already provides an interface for 
+translation services.
+
+\subsection{OpenAI Whisper Models}
+
+Throughout this thesis, OpenAI released an improved version of the Whisper model. The new model is called "large-v3" 
+and improves accuracy even further. The Faster-Whisper project, used in the pipeline, has yet to support the new model. 
+However, it is planned to add support for the improved model soon.
+
+Furthermore, it is reasonable to assume that OpenAI will release even more improved models over time. It is advisable 
+to keep an eye on the development of the Whisper project and update the System accordingly.
+
+\subsection{Noise Reduction}
+
+OpenAI Whisper does a decent job of filtering out background noise and only transcribing the spoken words. However, 
+there is still room for improvement. The System could use a noise reduction and voice activation algorithm to filter 
+out background noise further and only request a transcription if a human voice is recognized. This would improve the 
+transcription accuracy even more and prevent the System from transcribing background noises.
