@@ -5,3 +5,34 @@
 This chapter summarizes the System's capabilities and compares them to the requirements defined in Chapter 
 \ref{Introduction}. It also discusses the System's limitations and potential future work.
 
+%----------------------------------------------------------------------------------------
+
+\section{Summary}
+
+This thesis aimed to develop a System that allows users to communicate with each other in foreign languages in near 
+real-time. The System should be able to handle multiple audio streams simultaneously and detect the spoken language 
+automatically. It should also be able to translate the audio content into the user's preferred language and provide the 
+translated text and audio to the user. Furthermore, the System should be built using open-source software and be able 
+to run on commodity hardware.
+
+The System developed in this thesis can handle audio streams from web browsers and provides an interface for Voice over 
+IP providers to send a UDP audio stream to be processed, aiming to integrate with VoIP providers. The pipeline takes 
+the various audio sources, transforms them internally into the same format, and handles them the same way from that 
+point on.
+
+The near real-time transcription of the audio streams is achieved by utilizing the open-source OpenAI Whisper project. 
+The System enhances Whisper's capabilities by enabling it to transcribe audio streams instead of final audio files. 
+This reaches the goal of streaming support and near real-time transcription.
+
+Automatic language detection is achieved by utilizing the same Whisper service. It has a very capable language 
+detection feature that can detect the spoken language of an audio stream with high accuracy.
+
+The System uses the open-source PiperTTS project to synthesize spoken audio from text. It allows the System to 
+synthesize audio files with various voices in different languages. The System uses PiperTTS to synthesize audio files 
+from the translated messages and stores them in the filesystem. Implementing this feature reaches the goal of speech 
+synthesis based on open-source software.
+
+The only external proprietary component the speech-processing pipeline uses is the DeepL translation API to translate 
+the transcription results into the required languages within a session. This is the only component that is not 
+open-source since the quality and versatility of open-source translation services do not meet expectations.
+
