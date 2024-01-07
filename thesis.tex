@@ -125,8 +125,8 @@ taken verbatim or in spirit from other works are marked as such. The work has no
 body in the same or a similar form.
 \\
 
-\noindent Date: Oberthal, Germany - \today\\
-\rule[0.5em]{25em}{0.5pt} % This prints a line to write the date
+\noindent Date: Oberthal, Germany - January 9th, 2024\\
+\rule[0.5em]{25em}{0.5pt}
 
 \noindent Signed:\\
 \rule[0.5em]{25em}{0.5pt}\\
@@ -142,7 +142,28 @@ body in the same or a similar form.
 
 \begin{abstract}
 \addchaptertocentry{\abstractname}
-The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
+
+The primary objective of this bachelor's thesis is to develop a testable prototype for a speech-processing pipeline 
+that receives audio streams from various sources and transcribes and translates them in near real-time. The prototype 
+facilitates communication between emergency control centers and callers speaking different languages. The focus is on 
+utilizing open-source technologies like OpenAI Whisper for speech recognition. The System's functionality revolves 
+around processing audio streams, segmenting them into individual messages, and managing them within a session context 
+specific to foreign language communication. The prototype is integrated into the Notitia application, leveraging 
+existing internal modules for user authentication and data-stream integration to the Voice over IP provider.
+
+The thesis explores the integration of various open-source technologies. It aims to optimize the processing time of the 
+speech-processing pipeline to meet the stringent time constraints that characterize emergencies. The average processing 
+time of the pipeline is measured for different numbers of simultaneous audio streams to evaluate the performance and 
+conclude a sufficient transcription interval.
+
+This work shows that the speech-processing pipeline meets most requirements and is sufficiently fast to handle multiple 
+audio streams simultaneously. It also shows that the pipeline can be built using primarily open-source software and 
+commodity hardware. The text translation is the only component not based on an open-source project.
+
+This thesis concludes that the speech-processing pipeline is a viable solution for emergency call centers to overcome 
+language barriers in real-time communication. It can provide near real-time transcription and translation of spoken 
+content and can be deployed on-premise to ensure reliability in emergencies.
+
 \end{abstract}
 
 %----------------------------------------------------------------------------------------
