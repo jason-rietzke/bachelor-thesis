@@ -100,3 +100,17 @@ The receiving side of the \ac{voip} audio input is the system. It receives the \
 provider. It concatenates the chunks to a complete audio stream by utilizing the \textbf{ssrcId} property and 
 cross-referencing it with the registered streams. Since this is already a \ac{wav} audio stream, the system can directly 
 fire the appropriate AudioConnection "message" event to inform all listeners about the new data.
+
+\subsection{Communication Flow}
+
+In the diagram below \ref{fig:voip-communication-flow}, the communication flow between the \ac{voip} provider and the 
+System is shown (in this graphic called "Alternis"). It shows the registration via the \ac{http} \ac{api} endpoint and 
+the continuous \ac{udp} stream of audio data. The \ac{voip} provider sends the audio data to the System, and the System 
+sends the translated audio data back to the \ac{voip} provider. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/voip-communication-flow.png}
+	\caption{VoIP Communication Flow}
+	\label{fig:voip-communication-flow}
+\end{figure}
