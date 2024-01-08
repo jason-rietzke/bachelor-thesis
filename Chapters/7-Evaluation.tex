@@ -57,24 +57,24 @@ transcription interval of about 520 milliseconds would be optimal for a hardware
 However, the diagram also reveals that the average processing time for two audio streams is 575 milliseconds. This 
 seems unintuitive at first glance, but it is because the System utilizes a hardware setup with two graphics cards. 
 The System can process two audio streams simultaneously, each on a separate graphics card. This results in a minor 
-processing time increase for each audio stream since the System only shares CPU and data transmission resources between 
-the two audio streams - not the GPU performing the transcription.
+processing time increase for each audio stream since the System only shares \ac{cpu} and data transmission resources 
+between the two audio streams - not the \ac{gpu} performing the transcription.
 
 Looking at the average processing time for four simultaneous audio streams, we can see that it is 983 milliseconds. 
 This significantly increases compared to the average processing time for two audio streams. This is because the System 
-has to share the GPU resources between four audio streams - two on each graphics card. This results in a significant 
-increase in processing time for each audio stream.
+has to share the \ac{gpu} resources between four audio streams - two on each graphics card. This results in a 
+significant increase in processing time for each audio stream.
 
 As shown in the last row of the table above, the average processing time for eight simultaneous audio streams is 
 1,693 milliseconds. This significantly increases compared to the average processing time for four audio streams. 
-This is because the System has to share the GPU resources between eight audio streams - four on each graphics card. 
+This is because the System has to share the \ac{gpu} resources between eight audio streams - four on each graphics card.
 
-\subsection{GPU Utilization}
+\subsection{\ac{gpu} Utilization}
 
 The observation that the processing time increases are not doubled when the number of audio streams is doubled suggests 
-that the utilization of the GPU is improved by running multiple audio transcriptions simultaneously. The GPU is only 
-partially utilized when processing a single audio stream. A second, third, or fourth audio stream can utilize more GPU 
-resources even though the processing time increases overall.
+that the utilization of the \ac{gpu} is improved by running multiple audio transcriptions simultaneously. The \ac{gpu} 
+is only partially utilized when processing a single audio stream. A second, third, or fourth audio stream can utilize 
+more \ac{gpu} resources even though the processing time increases overall.
 
 \subsection{1500ms Transcription Interval}
 

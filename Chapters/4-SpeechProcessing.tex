@@ -19,10 +19,10 @@ transcription requests via an \ac{http} \ac{api} and returns the resulting \ac{j
 
 \subsection{Faster Whisper}
 
-Since the system's hardware uses Nvidia graphics cards, the microservice uses a GPU-accelerated version of Whisper 
-called Faster Whisper, \cite{fasterwhisper2023github}. It brings CUDA support to allow for GPU-accelerated processing 
-of audio files when dealing with Nvidia graphics cards. The microservice checks for the availability of CUDA support on 
-startup and falls back to the CPU version if it is unavailable.
+Since the system's hardware uses Nvidia graphics cards, the microservice uses a \ac{gpu}-accelerated version of Whisper 
+called Faster Whisper, \cite{fasterwhisper2023github}. It brings \ac{cuda} support to allow for \ac{gpu}-accelerated 
+processing of audio files when dealing with Nvidia graphics cards. The microservice checks for the availability of 
+\ac{cuda} support on startup and falls back to the \ac{cpu} version if it is unavailable.
 
 Since the interface for Faster Whisper is only available in the Python programming language, but the interfacing 
 service is preferred to be developed in Node.js, the Whisper access is implemented by building a \ac{cli} interface 

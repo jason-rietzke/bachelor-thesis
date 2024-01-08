@@ -16,8 +16,8 @@ A detailed look at each component and its inner workings comes in the following 
 \end{figure}
 
 Figure \ref{fig:workflowDiagram} shows a high-level overview of the System's workflow. It shows the phone call between 
-the emergency caller and the call-taker. It is routed through the \ac{voip} provider, which forwards the audio stream to 
-the speech-processing pipeline server. The server then processes the audio stream by transcribing, translating, and 
+the emergency caller and the call-taker. It is routed through the \ac{voip} provider, which forwards the audio stream 
+to the speech-processing pipeline server. The server then processes the audio stream by transcribing, translating, and 
 synthesizing it. The resulting tts signal gets sent back to the \ac{voip} provider, who plays it back to the caller and 
 call-taker, respectively.
 
@@ -37,8 +37,8 @@ communication systems. This module is described in detail in Chapter \ref{AudioD
 Within the context of this work, the focus lies on integrating Chromium-based web browsers. The Web MediaRecorder API 
 provides the audio input. The API requests access to the microphone and allows for recording audio streams. 
 The audio stream gets sent to the server as \ac{webm}-encoded data chunks of about 200ms. The server then concatenates 
-the chunks and converts the audio stream to \ac{wav} format. The conversion utilizes FFmpeg, a \ac{cli} tool for 
-manipulating audio and video files. The speech-processing pipeline then processes the resulting \ac{wav} file.
+the chunks and converts the audio stream to \ac{wav} format. The conversion utilizes \cite{ffmpeg2023}, a \ac{cli} tool 
+for manipulating audio and video files. The speech-processing pipeline then processes the resulting \ac{wav} file.
 
 \subsection{Voice-over-IP Audio}
 

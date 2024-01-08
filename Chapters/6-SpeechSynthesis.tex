@@ -43,13 +43,13 @@ Hello World, this is a test.
 
 \subsection{Audio Generation}
 
-Since PiperTTS utilizes the entire CPU by splitting the audio generation into as many threads as there are CPU cores, 
-the System can utilize the hardware's full potential without creating a service pool like the transcription 
-microservice.
+Since PiperTTS utilizes the entire \ac{cpu} by splitting the audio generation into as many threads as there are 
+\ac{cpu} cores, the System can utilize the hardware's full potential without creating a service pool like the 
+transcription microservice.
 
-PiperTTS also supports CUDA acceleration, which allows the System to utilize the GPU for audio generation. However, 
-this did not significantly improve the performance of the generation. Since the GPU is also used for transcription, 
-the System does not use the GPU acceleration for audio generation.
+PiperTTS also supports \ac{cuda} acceleration, which allows the System to utilize the \ac{gpu} for audio generation. 
+However, this did not significantly improve the performance of the generation. Since the \ac{gpu} is also used for 
+transcription, the System does not use the \ac{gpu} acceleration for audio generation.
 
 The generated audio file is in the \ac{wav} format and encoded as audio/wav. The System stores the audio file in the 
 filesystem. It returns the ID of the audio file to the session handling component—the session handling component uses 

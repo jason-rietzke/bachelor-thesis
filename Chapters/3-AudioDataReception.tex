@@ -57,12 +57,14 @@ capture the audio data from the microphone and sends it to the server via the We
 
 The web browser joins a WebSocket connection to the server and sends the audio data as a binary message to the server. 
 It requests access to the microphone and uses the MediaRecorder API to capture the audio data. 
-The audio data is requested in chunks of approximately 200ms and sent to the server as a \ac{webm}-encoded binary message.
+The audio data is requested in chunks of approximately 200ms and sent to the server as a \ac{webm}-encoded binary 
+message.
 
 \subsection{Receiver}
 
 On the other hand, the receiving WebSocket Server takes the chunk, converts the data into a \ac{wav} file format by 
-utilizing FFMPEG, and fires the appropriate AudioConnection "message" event to inform all listeners about the new data.
+utilizing \cite{ffmpeg2023}, and fires the appropriate AudioConnection "message" event to inform all listeners about 
+the new data.
 
 %----------------------------------------------------------------------------------------
 
@@ -98,8 +100,8 @@ properties are the identifiers for the session and user to whom the audio stream
 
 The receiving side of the \ac{voip} audio input is the system. It receives the \ac{udp} stream from the \ac{voip} 
 provider. It concatenates the chunks to a complete audio stream by utilizing the \textbf{ssrcId} property and 
-cross-referencing it with the registered streams. Since this is already a \ac{wav} audio stream, the system can directly 
-fire the appropriate AudioConnection "message" event to inform all listeners about the new data.
+cross-referencing it with the registered streams. Since this is already a \ac{wav} audio stream, the system can 
+directly fire the appropriate AudioConnection "message" event to inform all listeners about the new data.
 
 \subsection{Communication Flow}
 
