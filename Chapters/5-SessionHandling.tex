@@ -25,7 +25,13 @@ changes. Users connected to a session via Web Browser can see the updates to the
 session sends the updates via WebSockets.
 
 After a message is complete and its processing is finished, the session determines the language of the message and 
-finds all foreign languages present in the session by different users. It then requests all necessary translations.
+finds all foreign languages present in the session by different users. It then requests all necessary translations. 
+
+If a message transcription request takes longer than 1500ms, the following request is postponed until the previous 
+request is finished. This prevents the transcription services described in Chapter \ref{SpeechProcessing} from 
+overloading. This safeguard is necessary to prevent the transcription service from building up a backlog of requests 
+that can not be processed in time. This would result in a continuously growing backlog and eventually increase 
+processing times.
 
 \subsection{Interface Options}
 
@@ -35,9 +41,21 @@ for instance, when a new user joins the session. The web browser client uses thi
 the session and its messages to display them to the user.
 
 Another option is a WebHook interface. This allows third-party applications to subscribe to the session and receive 
-updates about it and its messages. If a service registers to a WebHook, a session sends all updates to the HTTP 
+updates about it and its messages. If a service registers to a WebHook, a session sends all updates to the \ac{http} 
 endpoint of the service. This interface can be used by any third-party application to integrate with the System and 
 receive updates about the session.
+
+\subsection{Bot Interface}
+
+The WebHook interface can also integrate a bot into the session context. Any application can register to the WebHook 
+interface and receive updates about the session. This allows the application to interact with the session and its 
+participants. The application can send messages to the session and receive updates about the session and its messages. 
+This allows the application to interact with the ongoing conversation. The bot can even post messages in any language. 
+Due to the translation capabilities of the System, the participants can read and or listen to the message in their 
+preferred language.
+
+This feature can be used to integrate a chatbot that can analyze the conversation and respond to it accordingly. 
+However, example implementations of such a bot are outside the scope of this work and will not be further discussed.
 
 %----------------------------------------------------------------------------------------
 
@@ -56,12 +74,24 @@ Third-party applications can use the WebHook interface to receive and integrate 
 application.
 
 The translation is also used to synthesize the translated message in a foreign language. The session handling component 
-uses the synthesized audio file to play it back to the users in a foreign language. Especially in the case of a Voice 
-over IP connection, this is the only way to provide the translated message to the participant and allows them to 
-communicate with each other.\\
+uses the synthesized audio file to play it back to the users in a foreign language. Especially in the case of a 
+\ac{voip} connection, this is the only way to provide the translated message to the participant and allows them to 
+communicate with each other. However, this is described in more detail in Chapter 
+\ref{SpeechSynthesisAndAudioDataTransmission}.\\
 
 The translation service is the only component of the speech-processing pipeline that does not run on-premise. It is an 
 external service DeepL provides and can not be hosted on demand. It is, however, possible to host a similar translation 
 service on-premise and use it instead of DeepL. The speech-processing pipeline is designed to be versatile and allows 
-the integration of any translation service. However, this is outside the scope of this work and will not be further 
-discussed.
+the integration of any translation service with relative ease.
+
+\subsection{Marian NMT}
+
+As an open-source alternative to DeepL, Marian NMT (\cite{mariannmt}) is a possible candidate. It is an open-source 
+translation service that can be hosted on-premise. After experimenting, it was found that the translation quality was 
+not on par with DeepL. Since the System aims to provide a high-quality translation in a critical environment, it was 
+decided to use DeepL instead of Marian NMT.
+
+This makes the translation service the only component of the speech-processing pipeline that is not open-source. 
+However, the System is designed to allow the integration of any translation service with little effort. This permits 
+the observation of the development of open-source translation services and integration into the System if they reach 
+the required quality.
