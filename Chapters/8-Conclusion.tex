@@ -2,7 +2,7 @@
 
 \label{Conclusion}
 
-This chapter summarizes the System's capabilities and compares them to the requirements defined in Chapter 
+This chapter summarizes the System's capabilities and compares them to the requirements in Chapter 
 \ref{Introduction}. It also discusses the System's limitations and potential future work.
 
 %----------------------------------------------------------------------------------------
@@ -15,10 +15,10 @@ automatically. It should also be able to translate the audio content into the us
 translated text and audio to the user. Furthermore, the System should be built using open-source software and be able 
 to run on commodity hardware.
 
-The System developed in this thesis can handle audio streams from web browsers and provides an interface for Voice over 
-IP providers to send a UDP audio stream to be processed, aiming to integrate with VoIP providers. The pipeline takes 
-the various audio sources, transforms them internally into the same format, and handles them the same way from that 
-point on.
+The System developed in this thesis can handle audio streams from web browsers and provides an interface for \ac{voip} 
+providers to send a \ac{udp} audio stream to be processed, aiming to integrate with \ac{voip} providers. The pipeline 
+takes the various audio sources, transforms them internally into the same format, and handles them the same way from 
+that point on.
 
 The near real-time transcription of the audio streams is achieved by utilizing the open-source OpenAI Whisper project. 
 The System enhances Whisper's capabilities by enabling it to transcribe audio streams instead of final audio files. 
@@ -32,9 +32,9 @@ synthesize audio files with various voices in different languages. The System us
 from the translated messages and stores them in the filesystem. Implementing this feature reaches the goal of speech 
 synthesis based on open-source software.
 
-The only external proprietary component the speech-processing pipeline uses is the DeepL translation API to translate 
-the transcription results into the required languages within a session. This is the only component that is not 
-open-source since the quality and versatility of open-source translation services do not meet expectations.
+The only external proprietary component the speech-processing pipeline uses is the DeepL translation \ac{api} to 
+translate the transcription results into the required languages within a session. This is the only component that is 
+not open-source since the quality and versatility of open-source translation services did not meet expectations.
 
 %----------------------------------------------------------------------------------------
 
@@ -46,7 +46,7 @@ The following sections discuss potential future work.
 
 The System uses the DeepL translation service to translate the transcription results into the required languages. 
 DeepL is a commercial translation service that provides a high-quality translation API. However, the versatility of the 
-System design allows for the future replacement of the DeepL translation service with an open-source solution. 
+System design allows for a future replacement of the DeepL translation service with an open-source solution. 
 
 Since new AI models are continuously being developed, open-source translation services may be available in the future. 
 Integrating such a service into the System would be straightforward since the System already provides an interface for 
@@ -66,4 +66,4 @@ to keep an eye on the development of the Whisper project and update the System a
 OpenAI Whisper does a decent job of filtering out background noise and only transcribing the spoken words. However, 
 there is still room for improvement. The System could use a noise reduction and voice activation algorithm to filter 
 out background noise further and only request a transcription if a human voice is recognized. This would improve the 
-transcription accuracy even more and prevent the System from transcribing background noises.
+transcription accuracy even more and prevent the System from trying to transcribe background noises.
