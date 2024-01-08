@@ -3,15 +3,16 @@
 \label{SpeechSynthesisAndAudioDataTransmission}
 
 Speech synthesis and transmitting the resulting audio data to the proper users is crucial for the System to work. The 
-following components are responsible for this task. Especially for users only connected via Voice over IP, this is the 
+following components are responsible for this task. Especially for users only connected via \ac{voip}, this is the 
 only way to provide them with the translated message.
 
 %----------------------------------------------------------------------------------------
 
 \section{Speech Synthesis}
 
-The System uses PiperTTS, an open-source text-to-speech library, to synthesize spoken audio from text. It supports 
-multiple languages and voices and allows the System to create audio files in any language with a voice model.
+The System uses PiperTTS (\cite{rhasspy2023pipertts}), an open-source text-to-speech library, to synthesize spoken 
+audio from text. It supports multiple languages and voices and allows the System to create audio files in any language 
+with a voice model.
 
 The System uses PiperTTS to create audio files from the translated messages. The audio files are stored in the 
 filesystem and available via a unique ID. The ID gets returned to the session handling component, which uses it to send 
@@ -19,16 +20,16 @@ the audio file to the appropriate users.
 
 \subsection{TTS Microservice}
 
-Like the transcription microservice, the speech synthesis microservice wraps the PiperTTS CLI interface and 
-provides a convenient HTTP API interface to the rest of the System. The service spawns a child process that runs the 
-PiperTTS CLI application and awaits the generation of the audio file. It then returns the audio file as an HTTP response 
-encoded as audio/wav.
+Like the transcription microservice, the speech synthesis microservice wraps the PiperTTS \ac{cli} and provides a 
+convenient \ac{http} \ac{api} to the rest of the System. The service spawns a child process that runs the 
+PiperTTS \ac{cli} application and awaits the generation of the audio file. It then returns the audio file as an 
+\ac{http} response encoded as audio/wav.
 
-The HTTP interface of the microservice is straightforward. It provides a single endpoint for synthesizing audio files 
-and returns the resulting audio file. The endpoint is available under the root path of the microservice and expects a 
-POST request with the text to synthesize as the body of the request. There is one required query parameter to specify 
-the language of the audio content. Additionally, there are optional query parameters to specify the preferred country, 
-gender, or a specific voice model. The microservice returns the resulting audio file.
+The \ac{http} interface of the microservice is straightforward. It provides a single endpoint for synthesizing audio 
+files and returns the resulting audio file. The endpoint is available under the root path of the microservice and 
+expects a POST request with the text to synthesize as the body of the request. There is one required query parameter to 
+specify the language of the audio content. Additionally, there are optional query parameters to specify the preferred 
+country, gender, or a specific voice model. The microservice returns the resulting audio file.
 
 \begin{verbatim}
 POST / HTTP/1.1
@@ -46,7 +47,11 @@ Since PiperTTS utilizes the entire CPU by splitting the audio generation into as
 the System can utilize the hardware's full potential without creating a service pool like the transcription 
 microservice.
 
-The generated audio file is in the WAV format and encoded as audio/wav. The System stores the audio file in the 
+PiperTTS also supports CUDA acceleration, which allows the System to utilize the GPU for audio generation. However, 
+this did not significantly improve the performance of the generation. Since the GPU is also used for transcription, 
+the System does not use the GPU acceleration for audio generation.
+
+The generated audio file is in the \ac{wav} format and encoded as audio/wav. The System stores the audio file in the 
 filesystem. It returns the ID of the audio file to the session handling component—the session handling component uses 
 the ID to send the audio file to the appropriate users. 
 
@@ -56,14 +61,14 @@ the ID to send the audio file to the appropriate users.
 
 After the audio file is available, the System needs to send it to the appropriate users. This procedure is different 
 depending on the audio input channel. The System uses WebSockets to send the audio file to users connected via a web 
-browser. For users connected via Voice over IP, the System uses a UDP backchannel to send the audio file to the VoIP 
-provider.
+browser. For users connected via \ac{voip}, the System uses a \ac{udp} backchannel to send the audio file to the 
+\ac{voip} provider.
 
 \subsection{Web Browser Audio}
 
 If the user connects via a browser audio stream, the System sends a WebSocket message to the client to notify it about 
-the existence of a newly synthesized file. The web client uses the transmitted ID property to download the audio WAV 
-file and uses the Web Audio API to play it back.
+the existence of a newly synthesized file. The web client uses the transmitted ID property to download the audio 
+\ac{wav} file and uses the Web Audio \ac{api} to play it back.
 
 The WebSocket message contains the ID of the audio file as well as data about the nature of the synthesized audio file. 
 The web client uses this information to determine the correct way to play back the audio file. The System sends the 
@@ -84,17 +89,40 @@ a translation of a message sent by another user. It can also be assigned to the 
 "translation-playback" value is used to play back the translation of the user's message.
 
 With this design decision, the User Interface can easily support features to play back the translations in different 
-volume levels or even allow client-side configuration to turn off the playback of specific translations altogether.
+volume levels or even allow client-side configuration to turn off the playback of specific synthesized messages 
+altogether.
 
 \subsection{Voice over IP Audio}
 
-If the user connects via a VoIP provider, the System sends a UDP message to the provider via a previously configured 
-backchannel port. The message contains the ID of the audio file, and the VoIP provider uses the ID to download the 
-audio WAV file and plays it back into the audio stream of the phone call. 
+If the user connects via a \ac{voip} provider, the System sends a \ac{udp} message to the provider via a previously 
+configured backchannel port. The message contains the ID of the audio file, and the \ac{voip} provider uses the ID to 
+download the audio \ac{wav} file and plays it back into the audio stream of the phone call.
 
-The UDP message contains only the ID of the audio file. The VoIP provider uses the ID to download the audio file and 
-play it back to the user. The System sends the following UDP message to the VoIP provider. 
+The System sends the following \ac{udp} message to the \ac{voip} provider. 
 
 \begin{verbatim}
 WaveFile:30ea2c43-bbdc-5db6-8d46-78ddbc2b1b72
 \end{verbatim}
+
+This gives the \ac{voip} provider the flexibility to play back the audio file in any way it wants. It can also 
+implement features to play back the audio file at different volume levels. One possible implementation would be to 
+playback the translation in total volume and lower the volume of the original audio stream. This would allow the user 
+to hear the translation more clearly and still have the original audio stream in the background.
+
+\section{Audio Download}
+
+For the web client or the \ac{voip} provider to download the audio file, the System provides a simple \ac{http} 
+endpoint. The endpoint is available under the /api/v1/audio path of the speech-processing pipeline. It expects a GET 
+request and requires the ID of the audio file as a query parameter. The System returns the audio file as an 
+audio/wav response.
+
+\begin{verbatim}
+HTTP/1.1 200 OK
+Content-Type: audio/wav
+Content-Length: 1234567
+
+RIFF....WAVEfmt ........data
+\end{verbatim}
+
+This simple \ac{http} \ac{api} makes it easy for all components of the System and third parties to download the audio 
+file and integrate it into their respective applications.
