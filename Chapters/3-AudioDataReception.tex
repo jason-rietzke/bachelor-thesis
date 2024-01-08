@@ -3,15 +3,15 @@
 \label{AudioDataReception}
 
 The system is versatile and is capable of handling a wide variety of input audio data streams. The scope of this work, 
-however, focuses on the reception of web browser audio input and Voice over IP audio input.
+however, focuses on the reception of web browser audio input and \ac{voip} audio input.
 
 %----------------------------------------------------------------------------------------
 
 \section{Audio Connection}
 
 Any specific audio reception point returns the generic AudioConnection class and allows the rest of the system to 
-handle every audio connection the same. 
-It contains data about its assigned session, the user it belongs to, and the audio input channel it uses.
+handle every audio connection the same. It contains data about its assigned session, the user it belongs to, and the 
+audio input channel it uses.
 
 It also provides an event-based interface so the rest of the system can listen to specific events and react  
 accordingly. The available events are the "close" event, which gets fired when the audio connection gets closed, and 
@@ -50,8 +50,8 @@ export class AudioConnection {
 \section{Web Browser Audio}
 
 The web browser audio input is the most straightforward audio input channel. It is based on WebSockets and
-uses the WebSocket API to receive audio data from the client. The client uses the MediaRecorder API to capture the 
-audio data from the microphone and sends it to the server via the WebSocket connection.
+uses the WebSocket \ac{api} to receive audio data from the client. The client uses the MediaRecorder \ac{api} to 
+capture the audio data from the microphone and sends it to the server via the WebSocket connection.
 
 \subsection{Transmitter}
 
@@ -68,16 +68,17 @@ utilizing FFMPEG, and fires the appropriate AudioConnection "message" event to i
 
 \section{Voice-over-IP Audio}
 
-The voice-over-IP audio input is more complicated than the WebSocket solution for the web browser. It is based on UDP 
-for the audio stream and requires additional HTTP API endpoints to register incoming streams properly.
+The \ac{voip} audio input is more complicated than the WebSocket solution for the web browser. It is based on UDP 
+for the audio stream and requires additional \ac{http} \ac{api} endpoints to register incoming streams properly.
 
 \subsection{Transmitter}
 
-The transmitting side of the VoIP audio input is the VoIP provider. Third parties implement it, and its detailed 
-implementation is out of the scope of this work. The VoIP provider sends the audio data as a UDP stream to the system 
-with approximately 20ms of audio data per chunk. Each chunk contains an identifier that allows the system to map the 
-audio data to a specific user. For the system to identify the audio data and assign it to the correct connections and 
-sessions, the VoIP provider registers the audio stream via an HTTP API endpoint like the one shown below.
+The transmitting side of the \ac{voip} audio input is the \ac{voip} provider. Third parties implement it, and its 
+detailed implementation is out of the scope of this work. The \ac{voip} provider sends the audio data as a UDP stream 
+to the system with approximately 20ms of audio data per chunk. Each chunk contains an identifier that allows the system 
+to map the audio data to a specific user. For the system to identify the audio data and assign it to the correct 
+connections and sessions, the \ac{voip} provider registers the audio stream via an \ac{http} \ac{api} endpoint like the 
+one shown below.
 
 \begin{verbatim}
 POST /api/v1/register-rtp
@@ -90,12 +91,12 @@ POST /api/v1/register-rtp
 \end{verbatim}
 
 The \textbf{ssrcId} property is the unique identifier for the UDP stream. The \textbf{callbackPort} property is the 
-system's port to send UDP messages to the VoIP provider. The \textbf{sessionId} and \textbf{userId} properties are the 
-identifiers for the session and user to whom the audio stream belongs.
+system's port to send UDP messages to the \ac{voip} provider. The \textbf{sessionId} and \textbf{userId} properties are 
+the identifiers for the session and user to whom the audio stream belongs.
 
 \subsection{Receiver}
 
-The receiving side of the VoIP audio input is the system. It receives the UDP stream from the VoIP provider. 
-It concatenates the chunks to a complete audio stream by utilizing the ssrcId property and cross-referencing it with 
-the registered streams. Since this is already a WAV audio stream, the system can directly fire the appropriate 
+The receiving side of the \ac{voip} audio input is the system. It receives the UDP stream from the \ac{voip} provider. 
+It concatenates the chunks to a complete audio stream by utilizing the \textbf{ssrcId} property and cross-referencing 
+it with the registered streams. Since this is already a WAV audio stream, the system can directly fire the appropriate 
 AudioConnection "message" event to inform all listeners about the new data.
