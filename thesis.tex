@@ -18,6 +18,7 @@ headsepline, % Uncomment to get a line under the header
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 
 \usepackage{mathpazo} % Use the Palatino font by default
+\usepackage{acro} % Use the acro package for abbreviations
 
 \usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
 
@@ -64,6 +65,15 @@ headsepline, % Uncomment to get a line under the header
 \hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
 }
 
+
+%----------------------------------------------------------------------------------------
+%	DEFINE ABBREVIATIONS
+%----------------------------------------------------------------------------------------
+
+\DeclareAcronym{voip}{
+  short=VoIP,
+  long=Voice over Internet Protocol,
+}
 \begin{document}
 
 \frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
@@ -107,7 +117,9 @@ headsepline, % Uncomment to get a line under the header
 		\large\textit{in the}\\[0.4cm]
 		\large\textit\deptname\\[0.4cm]
 		\large\textit{at the}\\[0.4cm]
-		\large\textit\univname\\[2cm]
+		\large\textit\univname\\[0.4cm]
+		\large\textit{in cooperation with}\\[0.4cm]
+		\large\textit{\href{https://livereader.com/}{LiveReader GmbH}}\\[2cm]
 
 		\vfill
 	\end{center}
@@ -149,7 +161,7 @@ facilitates communication between emergency control centers and callers speaking
 utilizing open-source technologies like OpenAI Whisper for speech recognition. The System's functionality revolves 
 around processing audio streams, segmenting them into individual messages, and managing them within a session context 
 specific to foreign language communication. The prototype is integrated into the Notitia application, leveraging 
-existing internal modules for user authentication and data-stream integration to the Voice over IP provider.
+existing internal modules for user authentication and data-stream integration to the \ac{voip} provider.
 
 The thesis explores the integration of various open-source technologies. It aims to optimize the processing time of the 
 speech-processing pipeline to meet the stringent time constraints that characterize emergencies. The average processing 
@@ -177,14 +189,6 @@ content and can be deployed on-premise to ensure reliability in emergencies.
 \listoftables % Prints the list of tables
 
 %----------------------------------------------------------------------------------------
-%	ABBREVIATIONS
-%----------------------------------------------------------------------------------------
-
-\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
-
-\end{abbreviations}
-
-%----------------------------------------------------------------------------------------
 %	THESIS CONTENT - CHAPTERS
 %----------------------------------------------------------------------------------------
 
@@ -203,5 +207,6 @@ content and can be deployed on-premise to ensure reliability in emergencies.
 \include{Chapters/6-SpeechSynthesis}
 \include{Chapters/7-Evaluation}
 \include{Chapters/8-Conclusion}
+\printacronyms
 
-\end{document}  
+\end{document}
