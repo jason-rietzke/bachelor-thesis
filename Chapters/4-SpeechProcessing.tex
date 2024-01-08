@@ -6,26 +6,27 @@ The speech-processing component mainly comprises a microservice wrapping OpenAIs
 that utilizes this component to process audio streams. It receives slices of the audio stream, various in length, and
 transcribes them into text.
 
-Since Whisper cannot process audio streams directly but solely complete audio files, this service is required to build 
-the basis to transcribe slices of the audio stream.
+Since Whisper cannot process audio streams directly but can only complete audio files, this service is required to 
+build the basis to transcribe slices of the audio stream continuously. The speech-processing pipeline uses this service 
+to support audio streams and near real-time transcription.
 
 %----------------------------------------------------------------------------------------
 
 \section{Microservice Wrapper}
 
 The speech-processing pipeline contains a microservice for processing audio streams with OpenAIs Whisper. It receives 
-transcription requests via an HTTP API and returns the resulting JSON information about the audio file.
+transcription requests via an \ac{http} \ac{api} and returns the resulting \ac{json} information about the audio file.
 
 \subsection{Faster Whisper}
 
 Since the system's hardware uses Nvidia graphics cards, the microservice uses a GPU-accelerated version of Whisper 
-called Faster Whisper. It brings CUDA support to allow for GPU-accelerated processing of audio files when dealing with 
-Nvidia graphics cards. The microservice checks for the availability of CUDA support on startup and falls back to the 
-CPU version if it is unavailable.
+called Faster Whisper, \cite{fasterwhisper2023github}. It brings CUDA support to allow for GPU-accelerated processing 
+of audio files when dealing with Nvidia graphics cards. The microservice checks for the availability of CUDA support on 
+startup and falls back to the CPU version if it is unavailable.
 
 Since the interface for Faster Whisper is only available in the Python programming language, but the interfacing 
-service is preferred to be developed in Node.js, the Whisper access is implemented by building a CLI interface that 
-calls all necessary operations of Faster Whisper. This design decision allows the developer to test the whisper 
+service is preferred to be developed in Node.js, the Whisper access is implemented by building a \ac{cli} interface 
+that calls all necessary operations of Faster Whisper. This design decision allows the developer to test the whisper 
 interface independently since it can run as a terminal application.
 
 The Node.js interface for the microservice itself spawns a child process that runs this application and communicates 
@@ -36,18 +37,47 @@ with it over the standard input/output.
 The versatility of this design pattern made another improvement very easy to implement. Since the capabilities of 
 different graphics cards are various, and one audio file processing job might not utilize the full potential of the 
 hardware in question, it makes sense to provide a service pool with a configurable amount of transcription workers 
-available. One transcription worker would be one instance of the previously explained CLI tool.
+available. One transcription worker would be one instance of the previously explained \ac{cli} tool.
 
 Due to the chosen design, this improvement is natural by holding a ServicePool with numerous worker instances. When 
 requesting a job, the pool uses the next available worker instance.
 
 \subsection{Interface}
 
-The HTTP interface of the microservice is straightforward. It provides a single endpoint for transcribing audio files 
-and returns the resulting JSON information about the audio file. The endpoint is available under the root path of the 
-microservice and expects a POST request with the audio file as the body of the request. The audio file has to be in a 
-WAV format and encoded as base64. There is also an optional query parameter to specify the language of the audio 
-content. The microservice returns the resulting JSON information about the audio file.
+The \ac{http} interface of the microservice is straightforward. It provides a single endpoint for transcribing audio 
+files and returns the resulting \ac{json} information about the audio file. The endpoint is available under the root 
+path of the microservice and expects a POST request with the audio file as the body of the request. The audio file has 
+to be in a \ac{wav} format and encoded as base64. There is also an optional query parameter to specify the language of 
+the audio content. The microservice returns the resulting \ac{json} information about the audio file.
+
+\subsection{Whisper Model Sizes}
+
+The OpenAI Whisper project provides multiple models with different sizes, accuracy, and performance. The microservice 
+uses the most powerful model available, "large-v2," by default since it provides the best accuracy, which is crucial 
+for the System. However, the microservice allows the specification of a different model size on the environment 
+variable level. This allows the developer to use a smaller model size for testing purposes or a larger one for 
+production.
+
+An extensive list of available models can be found in the research paper of OpenAI \cite{radford2022robust}. 
+The provided overview of the different model sizes is shown in Table \ref{tab:whisper-model-sizes} and refers to the 
+GitHub repository of the project \cite{whisper2022github}.
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		Size & Parameters & Multilanguage Model & VRAM & Rel. speed \\
+		\hline
+		tiny & 39 M & tiny & $\sim$1 GB & $\sim$32x \\
+		base & 74 M & base & $\sim$1 GB & $\sim$16x \\
+		small & 244 M & small & $\sim$2 GB & $\sim$6x \\
+		medium & 769 M & medium & $\sim$5 GB & $\sim$2x \\
+		large & 1550 M & large & $\sim$10 GB & 1x \\
+		\hline
+	\end{tabular}
+	\caption{Whisper Model Sizes}
+	\label{tab:whisper-model-sizes}
+\end{table}
 
 %----------------------------------------------------------------------------------------
 
@@ -69,7 +99,7 @@ assumes the previous language as long as a message has less than five words. Fro
 will reactivate again to determine the language of the audio stream. This safeguard reduces the chance of 
 misinterpreted audio files since the user will most likely not switch the language of the audio stream in the middle 
 of the conversation. Concise messages are the most vulnerable to language detection errors, and this protection 
-prevents these.
+reduces these.
 
 %----------------------------------------------------------------------------------------
 
@@ -77,7 +107,7 @@ prevents these.
 
 The transcription response of the microservice contains a list of all recognized words and their probability. The 
 speech-processing pipeline uses this to create the transcription of the audio stream. Words with a low probability are 
-uncertain and can be highlighted to the user in the front end.
+uncertain and can be highlighted to the user in the user interface.
 
 The speech-processing pipeline requests a transcription of the audio stream every 1500ms by default. If the 
 transcription has not changed since the previous request, the message will be assumed to be complete, and the recorded 
@@ -87,4 +117,6 @@ efficiently handle multiple messages in a row without interrupting the audio str
 Silence will cause such a cut since the audio file did not contain any additional spoken content, thus causing the 
 transcription to stay the same. After starting to speak, the audio buffer contains spoken content again, and the 
 transcription will contain new information. This new transcription input causes the creation of a new message, which 
-will be pending until the transcription changes to 1500ms again.
+will be pending until the transcription does not change for about 1500ms again.
+
+The reason for the transcription interval of 1500ms is documented in detail in the Evaluation chapter \ref{Evaluation}.
