@@ -1,0 +1,13 @@
+.slidev-toc-item {
+	list-style-type: none;
+}
+.slidev-toc-item li {
+	list-style-type: circle;
+}
+
+li.slidev-toc-item-active {
+	font-weight: 600;
+	padding-left: 0.5em;
+	border-left: 0.15em solid #94a8ff;
+	border-radius: 0.15em;
+}
