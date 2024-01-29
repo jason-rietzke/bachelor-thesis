@@ -11,6 +11,7 @@
 		"export:dark:clicked": "slidev export --dark --with-clicks"
 	},
 	"dependencies": {
+		"@lr-notitia/notitia-ui": "^0.3.34",
 		"@mdi/font": "^7.2.96",
 		"@slidev/cli": "^0.36.5",
 		"@slidev/theme-default": "*",
