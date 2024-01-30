@@ -54,4 +54,10 @@ Server Hardware configuration for the prototype
 
 ::right::
 
-<v-img src="./img/server.jpeg" width="600px" height="500px" />
+<v-img src="./img/server.jpg" width="600px" height="500px" />
+
+---
+
+## Concept
+
+<v-img src="./img/data-flow-chart.png" width="1200px" height="600px" />
