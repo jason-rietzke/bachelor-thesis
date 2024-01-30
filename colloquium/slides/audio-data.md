@@ -18,6 +18,8 @@ A generic audio connection class to stream-line all audio input sources to a com
 
 <div v-click>
 
+<hr class="my-4" style="border-color: #94a8ff" />
+
 Converts all input sources to a common waveform representation.
 
 -   each specific input source interface returns a audio connection instance

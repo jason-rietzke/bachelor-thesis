@@ -18,6 +18,8 @@ Spell Research Project
 
 <div v-click>
 
+<hr class="my-4" style="border-color: #94a8ff" />
+
 Speech Processing
 
 -   automatic language detection

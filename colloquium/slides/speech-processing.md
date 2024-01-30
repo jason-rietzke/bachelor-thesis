@@ -42,6 +42,8 @@ Whisper is not designed for real-time transcription
 
 <div v-click>
 
+<hr class="my-4" style="border-color: #94a8ff" />
+
 Solution: slice the audio stream into smaller individual audio files
 
 -   loss of context between the slices
@@ -62,6 +64,8 @@ The solution is realized in multiple steps
 -   detect the end of a speech to clear the message buffer
 
 <div v-click>
+
+<hr class="my-4" style="border-color: #94a8ff" />
 
 Choice of the transcription interval
 
