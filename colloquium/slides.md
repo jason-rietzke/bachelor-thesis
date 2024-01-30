@@ -21,3 +21,7 @@ src: ./slides/background.md
 src: ./slides/audio-data.md
 ---
 
+---
+src: ./slides/speech-processing.md
+---
+

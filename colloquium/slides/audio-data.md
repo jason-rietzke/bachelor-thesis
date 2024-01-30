@@ -4,7 +4,7 @@ layout: intro
 
 # Audio Data Reception
 
-<Toc mode="onlyCurrentTree" />
+<Toc mode="onlySiblings" />
 
 ---
 

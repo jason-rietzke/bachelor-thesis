@@ -4,7 +4,7 @@ layout: intro
 
 # Background
 
-<Toc mode="onlyCurrentTree" />
+<Toc mode="onlySiblings" />
 
 ---
 
@@ -38,6 +38,7 @@ Development goals of the project
 -   utilize mostly open-source software
 -   integrate into notitia framework
 -   integrate VoIP providers
+-   minimize processing time
 
 ---
 layout: two-cols
