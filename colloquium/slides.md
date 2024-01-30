@@ -25,3 +25,10 @@ src: ./slides/audio-data.md
 src: ./slides/speech-processing.md
 ---
 
+---
+layout: intro
+---
+
+# Live Demo
+
+visit [Notitia Alternis](https://alternis.notitia.world)

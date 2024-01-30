@@ -70,3 +70,24 @@ Choice of the transcription interval
 -   too large interval results in undesired delay in the transcription
 
 </div>
+
+---
+layout: two-cols
+---
+
+## Transcription Interval
+
+Processing times with different numbers of simultanious audio transcriptions
+
+| sim. transcriptions | avg. processing time |
+| ------------------- | -------------------- |
+| 1                   | 519ms                |
+| 2                   | 575ms                |
+| 4                   | 983ms                |
+| 8                   | 1,693ms              |
+
+the average processing time of processing 100 iterations of 30-second audio streams
+
+::right::
+
+<v-img src="./img/avg-processing-times.png" width="600px" height="500px" />
